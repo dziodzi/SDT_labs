@@ -10,12 +10,3 @@ management:
   endpoint:
     health:
       show-details: always
-  prometheus:
-    metrics:
-      export:
-        enabled: true
-        step: 5s
-    scrape_configs:
-      - job_name: 'spring-boot-app'
-        static_configs:
-          - targets: [ 'localhost:8080' ]

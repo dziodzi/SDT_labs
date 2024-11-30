@@ -14,3 +14,7 @@
 
 ## Подключить prometheus. Создать свою метрику. Приложить скрин ответа /prometheus с созданной метрикой
 ![](/screenshots/5_own_metric_in_prometheus.png)
+
+## Метрика в Grafana
+
+![](/screenshots/6_own_metric_in_grafana.png)
