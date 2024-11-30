@@ -1,0 +1,82 @@
+version: '3.7'
+
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+      - grafana_storage:/var/lib/grafana
+
+  loki:
+    hostname: loki
+    image: grafana/loki:latest
+    environment:
+      TZ: ${SYSTEM_TIMEZONE:-Europe/Moscow}
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prom_data:/prometheus
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:7.16.1
+    environment:
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m"
+      discovery.type: single-node
+    networks:
+      - elk
+    ports:
+      - "9200:9200"
+
+  logstash:
+    image: logstash:7.16.1
+    container_name: logstash
+    environment:
+      LS_JAVA_OPTS: "-Xmx512m -Xms512m"
+    ports:
+      - "5044:5044"
+      - "5000:5000"
+      - "9600:9600"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    container_name: kibana
+    image: kibana:7.16.1
+    depends_on:
+      - elasticsearch
+    networks:
+      - elk
+    ports:
+      - "5601:5601"
+
+networks:
+  elk:
+    driver: bridge
+
+volumes:
+  database_data:
+  prom_data:
+  grafana_storage:
