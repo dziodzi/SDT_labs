@@ -1,6 +1,17 @@
 spring:
   application:
     name: metric_and_logs
+  datasource:
+    url: jdbc:postgresql://localhost:5432/metrics_logs
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
 management:
   endpoints:
