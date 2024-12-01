@@ -72,6 +72,18 @@ services:
     ports:
       - "5601:5601"
 
+  postgres:
+    image: postgres:14
+    container_name: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: metrics_logs
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
 networks:
   elk:
     driver: bridge
@@ -80,3 +92,4 @@ volumes:
   database_data:
   prom_data:
   grafana_storage:
+  postgres_data:
