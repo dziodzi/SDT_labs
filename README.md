@@ -1,6 +1,6 @@
-# Лабораторная работа "Метрики и логи"
+# Лабораторные работы по дисциплине Инструментальные Средства Разработки ПО / Software Development Tools
 
-##  
+## Лабораторная работа "Метрики и логи"  
 
 ### 1. Cкриншоты из kibana с логами
 
@@ -22,26 +22,25 @@
 
 ![](/screenshots/5_own_metric_in_prometheus.png)
 
----
 
-## Дополнительно:
+### Дополнительно:
 
-### Кастомная метрика в Grafana
+#### Кастомная метрика в Grafana
 
 ![](/screenshots/6_own_metric_in_grafana.png)
 
-### Кастомные логи в базе данных
+#### Кастомные логи в базе данных
 
 ![](/screenshots/7_logs_in_database.png)
 
-### Кастомные метрики в базе данных
+#### Кастомные метрики в базе данных
 
 ![](/screenshots/8_metrics_in_database.png)
 
----
-
-## PromQL-запросы
+#### PromQL-запросы
 
 ![](/screenshots/9_new_metrics_amount.png)
 
 ![](/screenshots/10_new_metrics_compare_rate.png)
+
+---
